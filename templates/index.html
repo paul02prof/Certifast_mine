@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certifast</title>
+</head>
+<body>
+    <h1>
+        Hello {{ name }} !!!
+    </h1>
+    <p>He is very old, he is currently <b>{{ age }} years old!</b></p>
+    His Languages are:
+    <ul>
+        {% for language in languages %}
+            <li>{{ language }}</li>
+        {% endfor %}
+    </ul>
+
+    <div>
+        <form action="/" method="POST">
+            {{ form }}
+        </form>
+    </div>
+</body>
+</html>
