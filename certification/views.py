@@ -5,9 +5,13 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.http import require_POST
-from django.views.generic import TemplateView, FormView
+from django.views.generic import TemplateView, FormView, DetailView
 
-from .forms import AddCertificationForm, CategoryForm, InstitutionsForm, PrerequisitesForm, LanguagesForm
+from .forms import (
+    AddCertificationForm, CategoryForm,
+    InstitutionsForm, PrerequisitesForm, LanguagesForm
+)
+from .models import Certifications
 
 
 class IndexView(TemplateView):
@@ -15,7 +19,7 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["form"] = AddCertificationForm()
+        context["certifications"] = Certifications.objects.all()
         return context
 
 
@@ -38,12 +42,14 @@ class AddCertificationView(FormView):
         return super().form_valid(form)
 
     def post(self, request, *args, **kwargs):
-        form_class = self.get_form_class()
-        form = form_class(request.POST, request.FILES)
+        """Override post to handle the form submission manually"""
+        form = self.form_class(request.POST, request.FILES)
+
         if form.is_valid():
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+            form.save()
+            return redirect(self.success_url)
+
+        return self.render_to_response(self.get_context_data(form=form))
 
 
 class AddRelatedView(View):
@@ -70,3 +76,16 @@ class AddRelatedView(View):
             return redirect(reverse('add_certification'))
         else:
             return JsonResponse({'error': form.errors}, status=400)
+
+
+class CertificationDetailView(DetailView):
+    """Display details for a specific certification."""
+    model = Certifications
+    template_name = 'certification_detail.html'
+    context_object_name = 'certification'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add any additional context data here if needed
+        return context
+

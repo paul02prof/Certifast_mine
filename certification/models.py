@@ -15,17 +15,16 @@ class Certifications(models.Model):
             ("4", "impossible"),
         ),
     )
-    category = models.ForeignKey("Category", on_delete=models.CASCADE, null=True)
+    category = models.ManyToManyField("Category")
     price = models.DecimalField(default=0, decimal_places=2, max_digits=6)
-    duration_of_validity = models.CharField(null=True)
+    duration_of_validity = models.CharField(null=True, max_length=50)
     institution = models.ForeignKey("Institutions", on_delete=models.CASCADE, null=True)
     image = models.ImageField(upload_to="certification")
-    exam_site = models.CharField
-    prerequisites = models.ForeignKey("Prerequisites", models.CASCADE, null=True)
+    exam_site = models.CharField(max_length=100)
+    prerequisites = models.ManyToManyField("Prerequisites")
     link = models.URLField()
     discounts = models.CharField(null=True, max_length=50)
-    languages = models.ForeignKey("Languages", on_delete=models.CASCADE, null=True)
-
+    languages = models.ManyToManyField("Languages")
     class Meta:
         db_table = "certifications"
         verbose_name_plural = "Certifications"

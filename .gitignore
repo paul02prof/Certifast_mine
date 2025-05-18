@@ -183,3 +183,4 @@ cython_debug/
 .vscode/
 .history/
 */node_modules/
+media/
