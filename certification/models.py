@@ -31,6 +31,9 @@ class Certifications(models.Model):
         verbose_name_plural = "Certifications"
         unique_together = ("name", "institution")
 
+    def __str__(self):
+        return f"{self.name} - {self.institution.name}"
+
 
 class Institutions(models.Model):
     name = models.CharField(max_length=50)
@@ -41,6 +44,9 @@ class Institutions(models.Model):
         db_table = "institutions"
         verbose_name_plural = "Institutions"
 
+    def __str__(self):
+        return self.name
+
 
 class Prerequisites(models.Model):
     title = models.CharField(max_length=50)
@@ -49,6 +55,9 @@ class Prerequisites(models.Model):
     class Meta:
         db_table = "prerequisites"
         verbose_name_plural = "Prerequisites"
+
+    def __str__(self):
+        return self.title
 
 
 class Languages(models.Model):
@@ -60,7 +69,7 @@ class Languages(models.Model):
         verbose_name_plural = "Languages"
         unique_together = ("code", "name")
 
-    def __str__(self, *args, **kwargs):
+    def __str__(self):
         return f"{self.name} - {self.code}"
 
 
@@ -70,3 +79,6 @@ class Category(models.Model):
     class Meta:
         db_table = "category"
         verbose_name_plural = "Categories"
+
+    def __str__(self):
+        return self.name

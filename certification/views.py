@@ -1,11 +1,13 @@
 from django.http import JsonResponse
+from django.middleware.csrf import get_token
+from django.shortcuts import redirect
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView, FormView
 
 from .forms import AddCertificationForm, CategoryForm, InstitutionsForm, PrerequisitesForm, LanguagesForm
-from .models import Languages, Category, Institutions, Prerequisites
 
 
 class IndexView(TemplateView):
@@ -28,6 +30,7 @@ class AddCertificationView(FormView):
         context['institutions_form'] = InstitutionsForm()
         context['prerequisites_form'] = PrerequisitesForm()
         context['languages_form'] = LanguagesForm()
+        context['csrf_token'] = get_token(self.request)
         return context
 
     def form_valid(self, form):
@@ -53,28 +56,17 @@ class AddRelatedView(View):
     def post(self, request, model_name, *args, **kwargs):
         if model_name == 'category':
             form = CategoryForm(request.POST)
-            model_class = Category
         elif model_name == 'institution':
             form = InstitutionsForm(request.POST)
-            model_class = Institutions
         elif model_name == 'prerequisites':
             form = PrerequisitesForm(request.POST)
-            model_class = Prerequisites
         elif model_name == 'languages':
             form = LanguagesForm(request.POST)
-            model_class = Languages
         else:
             return JsonResponse({'error': 'Invalid model type'}, status=400)
 
         if form.is_valid():
-            new_item = form.save()
-            items = model_class.objects.all()
-            options = [{'value': item.id, 'label': str(item)} for item in items]
-
-            return JsonResponse({
-                'success': True,
-                'new_id': new_item.id,
-                'options': options
-            })
+            form.save()
+            return redirect(reverse('add_certification'))
         else:
             return JsonResponse({'error': form.errors}, status=400)
