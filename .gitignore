@@ -182,3 +182,4 @@ cython_debug/
 .idea/
 .vscode/
 .history/
+*/node_modules/
