@@ -1,0 +1,3 @@
+components:
+  modal: "components/modal.html"
+  cert_card: "components/cert_card.html"

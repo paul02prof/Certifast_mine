@@ -38,53 +38,11 @@
 
     <div id="modal-backdrop" class="hidden fixed inset-0 bg-black bg-opacity-40 z-40"></div>
 
-    <div id="modal-category" class="hidden fixed inset-0 z-50 flex items-center justify-center">
-        <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md relative">
-            <button onclick="closeModal('category')" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700">&times;</button>
-            <h3 class="text-lg font-bold mb-4">Add New Category</h3>
-            <form id="modal-form-category" method="post" action="/certifications/add-related/category/" class="space-y-4" onsubmit="return submitRelatedForm(event, 'category')">
-                {% csrf_token %}
-                {{ category_form.as_p }}
-                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Save</button>
-            </form>
-        </div>
-    </div>
+    {% #modal modal_id="category" title="Add New Category" form_action="add_related" form_param="category" modal_form=category_form %}{% /modal %}
+    {% #modal modal_id="institution" title="Add New Institution" form_action="add_related" form_param="institution" modal_form=institutions_form %}{% /modal %}
+    {% #modal modal_id="prerequisites" title="Add New Prerequisite" form_action="add_related" form_param="prerequisites" modal_form=prerequisites_form %}{% /modal %}
+    {% #modal modal_id="languages" title="Add New Language" form_action="add_related" form_param="languages" modal_form=languages_form %}{% /modal %}
 
-    <div id="modal-institution" class="hidden fixed inset-0 z-50 flex items-center justify-center">
-        <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md relative">
-            <button onclick="closeModal('institution')" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700">&times;</button>
-            <h3 class="text-lg font-bold mb-4">Add New Institution</h3>
-            <form id="modal-form-institution" method="post" action="/certifications/add-related/institution/" class="space-y-4" onsubmit="return submitRelatedForm(event, 'institution')">
-                {% csrf_token %}
-                {{ institutions_form.as_p }}
-                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Save</button>
-            </form>
-        </div>
-    </div>
-
-    <div id="modal-prerequisites" class="hidden fixed inset-0 z-50 flex items-center justify-center">
-        <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md relative">
-            <button onclick="closeModal('prerequisites')" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700">&times;</button>
-            <h3 class="text-lg font-bold mb-4">Add New Prerequisite</h3>
-            <form id="modal-form-prerequisites" method="post" action="/certifications/add-related/prerequisites/" class="space-y-4" onsubmit="return submitRelatedForm(event, 'prerequisites')">
-                {% csrf_token %}
-                {{ prerequisites_form.as_p }}
-                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Save</button>
-            </form>
-        </div>
-    </div>
-
-    <div id="modal-languages" class="hidden fixed inset-0 z-50 flex items-center justify-center">
-        <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md relative">
-            <button onclick="closeModal('languages')" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700">&times;</button>
-            <h3 class="text-lg font-bold mb-4">Add New Language</h3>
-            <form id="modal-form-languages" method="post" action="/certifications/add-related/languages/" class="space-y-4" onsubmit="return submitRelatedForm(event, 'languages')">
-                {% csrf_token %}
-                {{ languages_form.as_p }}
-                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Save</button>
-            </form>
-        </div>
-    </div>
 </div>
 <script>
     function openModal(field) {

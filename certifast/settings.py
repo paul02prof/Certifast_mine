@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "certification",
     "tailwind",
     "theme",
+    "slippers",
 ]
 
 TAILWIND_APP_NAME = 'theme'
@@ -58,6 +59,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
             ],
+            "builtins": ["slippers.templatetags.slippers"],
         },
     },
 ]

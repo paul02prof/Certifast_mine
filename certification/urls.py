@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import index, add_certification
+from .views import IndexView, AddCertificationView, AddRelatedView
 
 urlpatterns = [
-    path("", index, name="index"),
-    path("add/", add_certification, name="add_certification"),
+    path("", IndexView.as_view(), name="index"),
+    path("add/", AddCertificationView.as_view(), name="add_certification"),
+    path("add-related/<str:model_name>/", AddRelatedView.as_view(), name="add_related"),
 ]

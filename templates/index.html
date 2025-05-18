@@ -5,14 +5,7 @@
     <h1 class="text-3xl font-extrabold text-blue-700 mb-8 text-center">Certifications</h1>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {% for cert in certifications %}
-        <div class="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden flex flex-col">
-            <img src="{{ cert.image.url }}" alt="{{ cert.name }}" class="h-40 w-full object-cover">
-            <div class="p-4 flex-1 flex flex-col">
-                <h2 class="text-xl font-bold text-blue-700 mb-2">{{ cert.name }}</h2>
-                <p class="text-gray-500 mb-4">{{ cert.category.name }}</p>
-                <a href="{% url 'certification_detail' cert.id %}" class="mt-auto inline-block text-blue-600 hover:text-blue-800 font-semibold">Learn more &rarr;</a>
-            </div>
-        </div>
+            {% #cert_card  image_url=cert.image.url  name=cert.name category=cert.category.name detail_url=cert.get_absolute_url %}{% /cert_card %}
         {% empty %}
         <div class="col-span-full text-center text-gray-400">No certifications found.</div>
         {% endfor %}
