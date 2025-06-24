@@ -7,8 +7,18 @@
         {% for cert in certifications %}
             {% #cert_card  image_url=cert.image.url  name=cert.name category=cert.category.name detail_url=certification_detail id %}{% /cert_card %}
         {% empty %}
-        <div class="col-span-full text-center text-gray-400">No certifications found.</div>
+        <div class="col-span-full text-center text-gray-400 ">No certifications found.</div>
         {% endfor %}
+        <button class="btn btn-accent btn-outline  " >Add</button>
+        <div class="animate-in fade-in duration-500 slide-in-from-bottom-8">
+            <h1 class="text-3xl font-bold text-center">🎉 Cette boîte est animée !</h1>
+        </div>
+        <div x-data="{ show: false }" class="text-center">
+  <button @click="show = !show" class="btn btn-primary">Toggle</button>
+  <div x-show="show" class="animate-in fade-in duration-300 mt-4">
+    ✅ Cela apparaît avec une animation !
+  </div>
+</div>
     </div>
 </div>
 {% endblock %}
