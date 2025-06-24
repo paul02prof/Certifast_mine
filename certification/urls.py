@@ -6,7 +6,7 @@ from .views import *
 
 urlpatterns = [
     path("", IndexView.as_view(), name="index"),
-    path("date/", date_view, name="dat_jour"),
+    path("certif/", certif, name="certif"),
     path("add/", AddCertificationView.as_view(), name="add_certification"),
     path("add-related/<str:model_name>/", AddRelatedView.as_view(), name="add_related"),
     path("certification/<int:pk>/", CertificationDetailView.as_view(), name="certification_detail"),

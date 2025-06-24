@@ -17,13 +17,10 @@ from datetime import datetime
 
 
 
-def date_view(request):
-    context = {
-        'current_date': datetime.now().strftime("%A %d %B %Y"),
-        'current_day': datetime.now().strftime("%A")
-    }
-    return render(request, 'test.html', context)
 
+def certif(request):
+
+    return render(request, 'certif.html')
 
 class IndexView(TemplateView):
     template_name = "index.html"
