@@ -6,7 +6,11 @@ module.exports = {
   ],
 
   theme: {
-    extend: {},
+
+    extend: {
+        fontFamily: {
+      agbalumo: ['Agbalumo', 'sans-serif'],
+    },},
   },
   plugins: [
       require('tailwindcss-animate'),
