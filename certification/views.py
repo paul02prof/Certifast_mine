@@ -6,12 +6,23 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView, FormView, DetailView
-
+from django.shortcuts import render
 from .forms import (
     AddCertificationForm, CategoryForm,
     InstitutionsForm, PrerequisitesForm, LanguagesForm
 )
 from .models import Certifications
+
+from datetime import datetime
+
+
+
+def date_view(request):
+    context = {
+        'current_date': datetime.now().strftime("%A %d %B %Y"),
+        'current_day': datetime.now().strftime("%A")
+    }
+    return render(request, 'test.html', context)
 
 
 class IndexView(TemplateView):

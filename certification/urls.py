@@ -2,10 +2,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 
-from .views import IndexView, AddCertificationView, AddRelatedView, CertificationDetailView
+from .views import *
 
 urlpatterns = [
     path("", IndexView.as_view(), name="index"),
+    path("date/", date_view, name="dat_jour"),
     path("add/", AddCertificationView.as_view(), name="add_certification"),
     path("add-related/<str:model_name>/", AddRelatedView.as_view(), name="add_related"),
     path("certification/<int:pk>/", CertificationDetailView.as_view(), name="certification_detail"),

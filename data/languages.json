@@ -1,18 +1,26 @@
 [
-  {
-    "code": "en",
-    "name": "Anglais"
+ {
+    "code": "zh",
+    "name": "Chinois (Mandarin)"
   },
   {
-    "code": "fr",
-    "name": "Français"
+    "code": "hi",
+    "name": "Hindi"
   },
   {
-    "code": "es",
-    "name": "Espagnol"
+    "code": "ar",
+    "name": "Arabe"
   },
   {
-    "code": "de",
-    "name": "Allemand"
+    "code": "pt",
+    "name": "Portugais"
+  },
+  {
+    "code": "ru",
+    "name": "Russe"
+  },
+  {
+    "code": "ja",
+    "name": "Japonais"
   }
 ]
