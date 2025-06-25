@@ -20,7 +20,7 @@ from django.core.paginator import Paginator
 
 def certification_list(request):
     certifications_list = Certifications.objects.all().order_by('name')
-    paginator = Paginator(certifications_list, 9)  # 6 certifications par page
+    paginator = Paginator(certifications_list, 8)  # 6 certifications par page
 
     page_number = request.GET.get('page')
     certifications = paginator.get_page(page_number)
