@@ -37,6 +37,24 @@ class Certifications(models.Model):
     def __str__(self):
         return f"{self.name} - {self.institution.name}"
 
+    def get_difficulty_badge_type(self):
+        """Retourne le type de badge DaisyUI en fonction de la difficulté"""
+        types = {
+            '0': 'Easy',
+            '1': 'Medium',
+            '2': 'Hard',
+            '3': 'Very_hard',
+            '4': 'Impossible',
+        }
+        return types.get(self.level_of_difficulty, 'Impossible')
+
+    def get_short_description(self):
+        """Retourne une description tronquée pour les cartes"""
+        return self.description[:100] + '...' if self.description else "Aucune description disponible"
+
+    def get_formatted_price(self):
+        return f"{self.price:.2f} $"
+
 
 class Institutions(models.Model):
     name = models.CharField(max_length=50)

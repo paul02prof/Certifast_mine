@@ -15,12 +15,24 @@ from .models import Certifications
 
 from datetime import datetime
 
+from django.core.paginator import Paginator
 
 
+def certification_list(request):
+    certifications_list = Certifications.objects.all().order_by('name')
+    paginator = Paginator(certifications_list, 9)  # 6 certifications par page
 
-def certif(request):
+    page_number = request.GET.get('page')
+    certifications = paginator.get_page(page_number)
 
-    return render(request, 'certif.html')
+    # Préparer les choix de difficulté pour le template
+    difficulty_choices = dict(Certifications._meta.get_field('level_of_difficulty').choices)
+
+    return render(request, 'certif.html', {
+        'certifications': certifications,
+        'difficulty_choices': difficulty_choices
+    })
+
 
 class IndexView(TemplateView):
     template_name = "index.html"
