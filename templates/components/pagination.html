@@ -1,0 +1,24 @@
+<!-- templates/certifications/partials/pagination.html -->
+{% if certifications.paginator.num_pages > 1 %}
+<div class="flex justify-center mt-8">
+  <div class="join">
+    {% if certifications.has_previous %}
+      <a href="?page=1{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
+         class="join-item btn">«</a>
+      <a href="?page={{ certifications.previous_page_number }}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
+         class="join-item btn">‹</a>
+    {% endif %}
+
+    <span class="join-item btn">
+      Page {{ certifications.number }} sur {{ certifications.paginator.num_pages }}
+    </span>
+
+    {% if certifications.has_next %}
+      <a href="?page={{ certifications.next_page_number }}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
+         class="join-item btn">›</a>
+      <a href="?page={{ certifications.paginator.num_pages }}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
+         class="join-item btn">»</a>
+    {% endif %}
+  </div>
+</div>
+{% endif %}

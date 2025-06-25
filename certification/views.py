@@ -7,17 +7,18 @@ from django.views import View
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView, FormView, DetailView
 from django.shortcuts import render,get_object_or_404
+from django.db.models import Q
 from .forms import (
     AddCertificationForm, CategoryForm,
     InstitutionsForm, PrerequisitesForm, LanguagesForm
 )
-from .models import Certifications
+from .models import Certifications,Category,Institutions,Languages,Topic
 
 from datetime import datetime
 
 from django.core.paginator import Paginator
 
-
+"""
 def certification_list(request):
     certifications_list = Certifications.objects.all().order_by('name')
     paginator = Paginator(certifications_list, 8)  # 6 certifications par page
@@ -32,6 +33,49 @@ def certification_list(request):
         'certifications': certifications,
         'difficulty_choices': difficulty_choices
     })
+"""
+def certification_list(request):
+    certifications = Certifications.objects.all().order_by('name')
+
+    # Récupérer les paramètres de filtre
+    difficulty = request.GET.get('difficulty')
+    category = request.GET.get('category')
+    institution = request.GET.get('institution')
+    language = request.GET.get('language')
+    topic = request.GET.get('topic')
+
+    # Appliquer les filtres
+    if difficulty:
+        certifications = certifications.filter(level_of_difficulty=difficulty)
+
+    if category:
+        certifications = certifications.filter(category__id=category)
+
+    if institution:
+        certifications = certifications.filter(institution__id=institution)
+
+    if language:
+        certifications = certifications.filter(languages__id=language)
+
+    if topic:
+        certifications = certifications.filter(topic__id=topic)
+
+    # Pagination
+    paginator = Paginator(certifications, 8)
+    page_number = request.GET.get('page')
+    certifications_page = paginator.get_page(page_number)
+
+    # Préparer les données pour les filtres
+    context = {
+        'certifications': certifications_page,
+        'difficulty_choices': dict(Certifications._meta.get_field('level_of_difficulty').choices),
+        'all_categories': Category.objects.all().order_by('name'),
+        'all_institutions': Institutions.objects.all().order_by('name'),
+        'all_languages': Languages.objects.all().order_by('name'),
+        'all_topics': Topic.objects.all().order_by('name'),
+    }
+
+    return render(request, 'certif.html', context)
 
 
 def certification_detail(request, pk):

@@ -14,7 +14,7 @@
 </div>
 
 <div class="flex w-full h-64">
-
+{% include 'components/filtre.html' %}
 </div>
 <div class="divider width:2"></div>
 <div class="container mx-auto px-1 py-4">
@@ -65,23 +65,7 @@
         {% endfor %}
     </div>
 
-    <!-- Pagination DaisyUI -->
-    <div class="flex justify-center mt-8">
-        <div class="join">
-            {% if certifications.has_previous %}
-                <a href="?page=1" class="join-item btn">«</a>
-                <a href="?page={{ certifications.previous_page_number }}" class="join-item btn">‹</a>
-            {% endif %}
 
-            <span class="join-item btn">
-                Page {{ certifications.number }} sur {{ certifications.paginator.num_pages }}
-            </span>
-
-            {% if certifications.has_next %}
-                <a href="?page={{ certifications.next_page_number }}" class="join-item btn">›</a>
-                <a href="?page={{ certifications.paginator.num_pages }}" class="join-item btn">»</a>
-            {% endif %}
-        </div>
-    </div>
 </div>
+{% include 'components/pagination.html' %}
 {% endblock %}
