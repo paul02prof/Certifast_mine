@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView, FormView, DetailView
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from .forms import (
     AddCertificationForm, CategoryForm,
     InstitutionsForm, PrerequisitesForm, LanguagesForm
@@ -33,6 +33,21 @@ def certification_list(request):
         'difficulty_choices': difficulty_choices
     })
 
+
+def certification_detail(request, pk):
+    certification = get_object_or_404(Certifications, pk=pk)
+
+    # Organiser les données pour le template
+    context = {
+        'certif': certification,
+        'difficulty_levels': dict(Certifications._meta.get_field('level_of_difficulty').choices),
+        'topics': certification.topic.all(),
+        'categories': certification.category.all(),
+        'languages': certification.languages.all(),
+        'prerequisites': certification.prerequisites.all()
+    }
+
+    return render(request, 'certif_detail.html', context)
 
 class IndexView(TemplateView):
     template_name = "index.html"

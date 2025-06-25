@@ -52,9 +52,9 @@ class Certifications(models.Model):
         """Retourne une description tronquée pour les cartes"""
         return self.description[:100] + '...' if self.description else "Aucune description disponible"
 
-    def get_formatted_price(self):
-        return f"{self.price:.2f} $"
-
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('certification_detail', kwargs={'pk': self.pk})
 
 class Institutions(models.Model):
     name = models.CharField(max_length=50)
