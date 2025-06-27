@@ -61,7 +61,7 @@ def certification_list(request):
         certifications = certifications.filter(topic__id=topic)
 
     # Pagination
-    paginator = Paginator(certifications, 8)
+    paginator = Paginator(certifications, 16)
     page_number = request.GET.get('page')
     certifications_page = paginator.get_page(page_number)
 
