@@ -1,0 +1,68 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Certifications Dashboard</h1>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    {{ difficulty_chart|safe }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    {{ price_chart|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    {{ institution_chart|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Certifications List</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Difficulty</th>
+                        <th>Price</th>
+                        <th>Institution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cert in certifications %}
+                      p=0
+                      {% if cert.price < 100 %}
+                         p=p+1
+                      {% endif %}
+                    <tr>
+                        <td>{{ cert.name }}</td>
+                        <td>{{ cert.get_level_of_difficulty_display }}</td>
+                        <td>${{ cert.price }}</td>
+                        <td>{{ cert.institution.name }}</td>
+                    </tr>
+
+                    {% endfor %}
+                     <h1>p</h1>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

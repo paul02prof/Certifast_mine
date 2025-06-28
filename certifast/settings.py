@@ -23,15 +23,16 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
+     "django_plotly_dash.apps.DjangoPlotlyDashConfig",
     "certification",
     "tailwind",
     "theme",
     "slippers",
+
 ]
 
 TAILWIND_APP_NAME = 'theme'
-
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",

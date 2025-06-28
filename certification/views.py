@@ -12,28 +12,79 @@ from .forms import (
     AddCertificationForm, CategoryForm,
     InstitutionsForm, PrerequisitesForm, LanguagesForm
 )
-from .models import Certifications,Category,Institutions,Languages,Topic
+from .models import Certifications,Category,Institutions,Languages,Topic,Course
 
 from datetime import datetime
 
 from django.core.paginator import Paginator
 
+import plotly.graph_objects as go
+import plotly.offline as opy
+
+
+def dashboard(request):
+    # Get data from database
+    certifications = Certifications.objects.all()
+
+    # Prepare data for charts
+    difficulty_counts = certifications.values_list('level_of_difficulty', flat=True)
+
+    difficulty_counts = certifications.values_list('level_of_difficulty', flat=True)
+    price_data = certifications.values_list('price', flat=True)
+    institution_counts = certifications.values_list('institution__name', flat=True)
+
+    # Chart 1: Difficulty Level Distribution
+    difficulty_fig = go.Figure()
+    difficulty_fig.add_trace(go.Histogram(
+       x=['2', '1', '0', '2', '3', '2', '2', '1', '2', '3', '1', '1'],
+       name='Difficulty Distribution',
+       histnorm='percent'
+    ))
+    difficulty_fig.update_layout(
+        title='Certification Difficulty Levels',
+        xaxis_title='Difficulty Level',
+        yaxis_title='Percentage',
+        bargap=0.2
+    )
+    difficulty_div = opy.plot(difficulty_fig, auto_open=False, output_type='div')
+
+    # Chart 2: Price Distribution
+    price_fig = go.Figure()
+   # price_fig.add_trace(go.Box(
+   #     y=price_data,
+    #    name='Price Distribution',
+    #    boxpoints='all'
+    #))
+    price_fig.update_layout(
+        title='Certification Prices',
+        yaxis_title='Price ($)'
+    )
+    price_div = opy.plot(price_fig, auto_open=False, output_type='div')
+
+    # Chart 3: Institution Distribution
+    """
+    
+    institution_fig = go.Figure()
+    institution_counts = certifications.values('institution__name').annotate(count=Institutions.Count('id'))
+    institution_fig.add_trace(go.Pie(
+        labels=[item['institution__name'] for item in institution_counts],
+        values=[item['count'] for item in institution_counts],
+        name='Institutions'
+    ))
+    institution_fig.update_layout(
+        title='Certifications by Institution'
+    )
+    institution_div = opy.plot(institution_fig, auto_open=False, output_type='div')
 """
-def certification_list(request):
-    certifications_list = Certifications.objects.all().order_by('name')
-    paginator = Paginator(certifications_list, 8)  # 6 certifications par page
+    context = {
+        'difficulty_chart': difficulty_div,
+        'price_chart': price_div,
+        #'institution_chart': institution_div,
+        'certifications': certifications
+    }
 
-    page_number = request.GET.get('page')
-    certifications = paginator.get_page(page_number)
+    return render(request, 'dashboard.html', context)
 
-    # Préparer les choix de difficulté pour le template
-    difficulty_choices = dict(Certifications._meta.get_field('level_of_difficulty').choices)
-
-    return render(request, 'certif.html', {
-        'certifications': certifications,
-        'difficulty_choices': difficulty_choices
-    })
-"""
 def certification_list(request):
     certifications = Certifications.objects.all().order_by('name')
 
@@ -77,6 +128,49 @@ def certification_list(request):
 
     return render(request, 'certif.html', context)
 
+def course_list(request):
+    course = Course.objects.all().order_by('name')
+
+    # Récupérer les paramètres de filtre
+    difficulty = request.GET.get('difficulty')
+    category = request.GET.get('category')
+    institution = request.GET.get('institution')
+    language = request.GET.get('language')
+    topic = request.GET.get('topic')
+
+    # Appliquer les filtres
+    if difficulty:
+        course = course.filter(level_of_difficulty=difficulty)
+
+    if category:
+        course = course.filter(category__id=category)
+
+    if institution:
+        course = course.filter(institution__id=institution)
+
+    if language:
+        course = course.filter(languages__id=language)
+
+    if topic:
+        course = course.filter(topic__id=topic)
+
+    # Pagination
+    paginator = Paginator(course, 16)
+    page_number = request.GET.get('page')
+    course_page = paginator.get_page(page_number)
+
+    # Préparer les données pour les filtres
+    context = {
+        'certifications': course_page,
+        'difficulty_choices': dict(Course._meta.get_field('level_of_difficulty').choices),
+        'all_categories': Category.objects.all().order_by('name'),
+        'all_institutions': Institutions.objects.all().order_by('name'),
+        'all_languages': Languages.objects.all().order_by('name'),
+        'all_topics': Topic.objects.all().order_by('name'),
+    }
+
+    return render(request, 'course.html', context)
+
 
 def certification_detail(request, pk):
     certification = get_object_or_404(Certifications, pk=pk)
@@ -93,6 +187,22 @@ def certification_detail(request, pk):
 
     return render(request, 'certif_detail.html', context)
 
+def course_detail(request, pk):
+    course = get_object_or_404(Course, pk=pk)
+
+    # Organiser les données pour le template
+    context = {
+        'certif': course,
+        'difficulty_levels': dict(Course._meta.get_field('level_of_difficulty').choices),
+        'topics': course.topic.all(),
+        'categories': course.category.all(),
+        'languages': course.languages.all(),
+        'prerequisites': course.prerequisites.all()
+    }
+
+    return render(request, 'course_detail.html', context)
+
+
 class IndexView(TemplateView):
     template_name = "index.html"
 
@@ -100,6 +210,8 @@ class IndexView(TemplateView):
         context = super().get_context_data(**kwargs)
         context["certifications"] = Certifications.objects.all()
         return context
+
+
 
 
 class AddCertificationView(FormView):
