@@ -15,14 +15,14 @@
     <!-- Carte principale -->
     <div class="card  w-3/12">
         <figure class="px-1 pt-10">
-            <img src="{{ course.image.url }}" alt="{{ certif.name }}" class="rounded-xl h-64 object-cover">
+            <img src="{{ course.image.url }}" alt="{{ certif.name }}" class="rounded-xl h-64 object-cover ">
         </figure>
     </div>
     <div class="card w-7/12  ">
         <div class="card-body ">
             <!-- En-tête avec titre et difficulté -->
             <div class="flex justify-between items-start">
-                <h1 class="card-title  text-4xl text-black">{{ course.name }}</h1>
+                <h1 class="card-title  text-4xl text-black">{{ certif.name }}</h1>
             </div>
             
             <!-- Institution -->
@@ -30,12 +30,12 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
                 </svg>
-                <span class="text-lg text-black">{{ course.institution.name }}</span>
+                <span class="text-lg text-black">{{ certif.institution.name }}</span>
             </div>
             <!-- Description complète -->
             <div class="mt-6">
                 <h2 class="text-xl text-black font-bold mb-2">Description</h2>
-                <p class="whitespace-pre-line text-black">{{ course.description }}</p>
+                <p class="whitespace-pre-line text-black">{{ certif.description }}</p>
             </div>
 
             <!-- Bouton d'action -->
@@ -61,7 +61,7 @@
                     durée -->
 
 
-                <button class="btn btn-ghost btn-outline text-black"> {{ course.duration_of_validity }}</button>
+                <button class="btn btn-ghost btn-outline text-black"> {{ certif.duration_of_validity }}</button>
                          {% for language in languages %}
                       <button class="btn btn-ghost btn-outline text-black"> {{ language.name }}</button>
                         {% endfor %}
@@ -117,4 +117,23 @@
         </div>
     </div>
 </div>
+
+<script>
+const CourseButton = document.getElementById('course-page');
+        const CourseSvg = document.getElementById('course-svg');
+        const CertifButton = document.getElementById('certif-page');
+        const CertifSvg = document.getElementById('certif-svg');
+
+        const body = document.getElementById('body');
+body.classList.add('bg-white');
+
+
+
+            CourseButton.classList.add('bg-blue-600');
+           CourseSvg.classList.add('stroke-white');
+
+             CertifButton.classList.remove('bg-blue-600');
+          CertifSvg.classList.remove('stroke-white');
+</script>
+
 {% endblock %}

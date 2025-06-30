@@ -4,7 +4,7 @@ from django.db import models
 
 
 class Certifications(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=100)
     description = models.TextField(null=True)
     level_of_difficulty = models.CharField(
         max_length=20,
@@ -24,7 +24,7 @@ class Certifications(models.Model):
     institution = models.ForeignKey("Institutions", on_delete=models.CASCADE, null=True)
     image = models.ImageField(upload_to="certification")
     exam_site = models.CharField(max_length=100)
-    prerequisites = models.ManyToManyField("Prerequisites")
+    prerequisites = models.ManyToManyField("Certifications", symmetrical=False,blank=True)
     link = models.URLField()
     discounts = models.CharField(null=True, max_length=50)
     languages = models.ManyToManyField("Languages")
@@ -95,7 +95,7 @@ class Languages(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=20, unique=True)
+    name = models.CharField(max_length=50, unique=True)
 
     class Meta:
         db_table = "category"
@@ -106,7 +106,7 @@ class Category(models.Model):
 
 
 class Topic(models.Model):
-    name = models.CharField(max_length=20, unique=True)
+    name = models.CharField(max_length=50, unique=True)
 
     class Meta:
         db_table = "topic"
@@ -136,7 +136,7 @@ class Course(models.Model):
     institution = models.ForeignKey("Institutions", on_delete=models.CASCADE, null=True)
     image = models.ImageField(upload_to="certification")
     exam_site = models.CharField(max_length=100)
-    prerequisites = models.ManyToManyField("Prerequisites")
+    prerequisites = models.CharField(null=True, max_length=50)
     link = models.URLField()
     discounts = models.CharField(null=True, max_length=50)
     languages = models.ManyToManyField("Languages")
@@ -148,3 +148,8 @@ class Course(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.institution.name}"
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('course_detail', kwargs={'pk': self.pk})
+

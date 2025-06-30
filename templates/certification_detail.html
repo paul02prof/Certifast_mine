@@ -43,10 +43,8 @@
                             <ul class="list-disc pl-5 space-y-1 text-gray-600">
                                 {% for prerequisite in certification.prerequisites.all %}
                                     <li>
-                                        <span class="font-medium">{{ prerequisite.title }}</span>
-                                        {% if prerequisite.description %}
-                                            - {{ prerequisite.description }}
-                                        {% endif %}
+                                        <span class="font-medium">{{ prerequisite.name }}</span>
+
                                     </li>
                                 {% endfor %}
                             </ul>

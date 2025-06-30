@@ -1,0 +1,34 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+{% load static %}
+<div class="
+  w-full h-full
+  bg-white
+  bg-[length:40px_40px]
+  bg-[image:linear-gradient(to_right,#e5e7eb_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb_1px,transparent_1px)]
+  overflow-hidden
+">
+  <!-- Votre contenu par-dessus la grille -->
+  <div class="p-8">
+    <!-- Le contenu de votre application ici -->
+  </div>
+</div>
+
+<script>
+const pathButton = document.getElementById('path-page');
+        const pathSvg = document.getElementById('path-svg');
+        const CertifButton = document.getElementById('certif-page');
+        const CertifSvg = document.getElementById('certif-svg');
+
+
+
+
+            pathButton.classList.add('bg-blue-600');
+           pathSvg.classList.add('stroke-white');
+
+             CertifButton.classList.remove('bg-blue-600');
+          CertifSvg.classList.remove('stroke-white');
+</script>
+
+{% endblock %}

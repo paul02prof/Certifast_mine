@@ -171,6 +171,9 @@ def course_list(request):
 
     return render(request, 'course.html', context)
 
+def path_user(request):
+    return render(request, 'path.html')
+
 
 def certification_detail(request, pk):
     certification = get_object_or_404(Certifications, pk=pk)

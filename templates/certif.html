@@ -34,17 +34,18 @@
     <!-- Grille de certifications -->
     <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-y-6 gap-x-1 mb-8  line-height-12px">
         {% for certif in certifications %}
-        <div class="card bg-base-100 w-11/12 h-9/12   hover:shadow-lg hover:transition-shadow  duration-500 hover:duration-500">
+        <div class="card bg-white w-11/12 h-9/12   hover:shadow-2xl hover:-translate-y-2  duration-500 hover:duration-500">
             <!-- Image -->
             <figure>
-                <img src="{{ certif.image.url }}" alt="{{ certif.name }}" class="w-full h-48 object-cover max-h-32 min-h-32">
+                <img src="{{ certif.image.url }}" alt="{{ certif.name }}" class="w-full h-48  object-contain bg-white">
             </figure>
 
             <!-- Corps de la carte -->
-            <div class="card-body p-4 pb-2 pt-2">
+            <div class="card-body p-2  pt-2 ">
                 <!-- Titre et badge de difficulté -->
-                <h2 class="card-title text-xl" >
+                <h2 class="card-title text-xl text-base-200" >
                     {{ certif.name }}
+                    <!--
                     <div class="badge
                         {% if certif.level_of_difficulty == '0' %}badge-success
                         {% elif certif.level_of_difficulty == '1' %}badge-info
@@ -53,6 +54,7 @@
                         {% else %}badge-neutral{% endif %} ">
                         {{ certif.get_level_of_difficulty_display }}
                     </div>
+                    -->
                 </h2>
 
                 <!-- Description courte
