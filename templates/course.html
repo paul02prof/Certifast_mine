@@ -11,15 +11,8 @@
       </svg>
       </button>
     <div class="flex justify-end space-x-5 pl-48 pt-0 items-center stroke-1">
-      <button type="submit" class="btn btn-primary ">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
-        </svg>
-        Appliquer les filtres
-      </button>
-      <a href="{% url 'course_list' %}" class="btn btn-outline">
-        Réinitialiser
-      </a>
+      <div id="username-placeholder" class="mt-4 text-xl font-bold text-gray-700"></div>
+
     </div>
 
 </div>
@@ -72,7 +65,7 @@
         </div>
         {% empty %}
         <div class="col-span-full text-center py-12">
-            <p class="text-gray-500">Aucune certification disponible pour le moment.</p>
+            <p class="text-gray-500">Aucun cours disponible pour le moment.</p>
         </div>
         {% endfor %}
     </div>
@@ -102,18 +95,6 @@
     });
   });
 
-   const CourseButton = document.getElementById('course-page');
-        const CourseSvg = document.getElementById('course-svg');
-
-
-
-            CourseButton.classList.add('bg-blue-600');
-           CourseSvg.classList.add('stroke-white');
-
-             CertifButton.classList.remove('bg-blue-600');
-          CertifSvg.classList.remove('stroke-white');
-
-
 
   // Gère les sélections des options de filtres
   document.querySelectorAll('.filter-btn').forEach(button => {
@@ -138,5 +119,21 @@
     });
   });
 });
+
+   const CourseButton = document.getElementById('course-page');
+        const CourseSvg = document.getElementById('course-svg');
+
+
+
+            CourseButton.classList.add('bg-blue-600');
+           CourseSvg.classList.add('stroke-white');
+
+const CertifButton = document.getElementById('certif-page');
+        const CertifSvg = document.getElementById('certif-svg');
+
+             CertifButton.classList.remove('bg-blue-600');
+          CertifSvg.classList.remove('stroke-white');
+
+
 </script>
 {% endblock %}

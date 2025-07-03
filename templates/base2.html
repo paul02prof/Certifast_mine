@@ -70,18 +70,123 @@
 </svg>
 
       </button>
-          <button class="btn btn-ghost btn-circle " >
+          <button class="btn btn-ghost btn-circle " onclick="document.getElementById('modal').classList.remove('hidden')">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 stroke-1 hover:stroke-blue-600">
   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
 </svg>
 </button>
-<button class="btn btn-ghost btn-circle" >
+<button  class="btn btn-ghost btn-circle" onclick="document.getElementById('loginModal').classList.remove('hidden')"
+        >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-8 stroke-1 hover:stroke-blue-600">
   <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
 </svg>
       </button>
           </div>
   </div>
+
+
+     <!-- FIN SIDEBAR -->
+
+    <!-- MODAL -->
+    <div id="modal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center">
+
+        <div class="bg-white w-[900px] h-[600px] rounded-[30px] flex shadow-xl overflow-hidden relative">
+
+
+
+        <!-- Left panel -->
+        <div class="w-1/2 p-10 flex flex-col justify-between bg-gradient-to-t from-blue-100 to-blue-50">
+          <div>
+            <h2 class="text-2xl font-semibold mb-1">Create an account</h2>
+
+            <form class="space-y-10 pt-8">
+              <input type="text" placeholder="Full name" class="w-full px-4 py-3 rounded-full bg-white border border-gray-300 focus:outline"/>
+              <input type="email" placeholder="Email" class="w-full px-4 py-3 rounded-full bg-white border border-gray-300 focus:outline"/>
+              <div class="relative">
+                <input type="password" placeholder="Password" class="w-full px-4 py-3 rounded-full bg-white border border-gray-300 focus:outline"/>
+                <span class="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer">🔒</span>
+              </div>
+              <button type="submit" class="w-full bg-yellow-400 text-white  py-3 rounded-full font-semibold hover:bg-yellow-500 transition">
+                Submit
+              </button>
+
+
+            </form>
+              <div class="text-sm text-gray-400 mt-8">
+              <button onclick="document.getElementById('loginModal').classList.remove('hidden');document.getElementById('modal').classList.add('hidden') "  class="w-full bg-blue-500 text-white  py-3 rounded-full font-semibold hover:bg-blue-700 transition">
+               Login
+              </button>
+              </div>
+
+
+          </div>
+        </div>
+
+        <!-- Right panel -->
+        <div
+          class="w-1/2 h-screen bg-cover bg-center relative"
+          style="background-image: url('{% static 'img/login.png'%}')"
+        >
+
+        </div>
+            <!-- Button Close -->
+        <button onclick="document.getElementById('modal').classList.add('hidden')" class="absolute top-4 right-4 bg-white w-8 h-8 rounded-full text-gray-600 text-xl flex items-center justify-center hover:bg-red-700 hover:text-white">
+          ×
+        </button>
+      </div>
+    </div>
+
+    <!-- MODAL DE CONNEXION -->
+<div id="loginModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white w-[900px] h-[600px] rounded-[30px] flex shadow-xl overflow-hidden relative">
+
+    <!-- Image décorative à gauche -->
+    <div class="w-full h-screen bg-cover  " style="background-image: url('{% static 'img/login.png'%}')">
+      <!-- Tu peux ajouter des éléments décoratifs ici -->
+    </div>
+
+    <!-- Formulaire à droite -->
+    <div class="w-1/2 p-10 flex flex-col justify-between bg-gradient-to-b from-blue-50 to-white">
+      <button
+        onclick="document.getElementById('loginModal').classList.add('hidden')"
+        class="absolute top-4 right-4 bg-white w-8 h-8 rounded-full text-gray-600 text-xl flex items-center justify-center hover:bg-red-700 hover:text-white"
+      >
+        ×
+      </button>
+
+      <div>
+
+        <h2 class="text-2xl font-semibold mb-1">Log In</h2>
+
+        <form id="login-form" class="space-y-8 mt-6">
+          <input
+            type="email"
+            placeholder="Email"
+            class="w-full px-4 py-3 rounded-full bg-white border border-gray-300 focus:outline-none"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            class="w-full px-4 py-3 rounded-full bg-white border border-gray-300 focus:outline-none"
+          />
+          <button
+            type="submit"
+            class="w-full bg-blue-500 text-white py-3 rounded-full font-semibold hover:bg-blue-600 transition"
+          >
+            Login
+          </button>
+        </form>
+
+        <p id="login-error" class="text-red-600 mt-4 text-sm hidden"></p>
+      </div>
+
+      <div class="text-sm text-gray-400 mt-4">
+          Pas encore inscrit ? <button onclick="document.getElementById('modal').classList.remove('hidden'); document.getElementById('loginModal').classList.add('hidden')" class="text-gray-700 font-medium underline">Créer un compte</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <main class="container mx-1 px-1 pr-px pl-px">
     {% block content %}
@@ -98,6 +203,10 @@
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
 <script>
+
+
+
+
     document.addEventListener('DOMContentLoaded', function() {
         // Initialize tag-like selection boxes
         document.querySelectorAll('.js-tags').forEach(function(el) {
@@ -156,6 +265,126 @@
 
   });
 
+  const form = document.querySelector('form');
+  const modal = document.getElementById('modal');
+  const usernamePlaceholder = document.getElementById('username-placeholder');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const fullName = form.querySelector('input[placeholder="Full name"]').value;
+    const email = form.querySelector('input[placeholder="Email"]').value;
+    const password = form.querySelector('input[placeholder="Password"]').value;
+
+    const response = await fetch('/api/register/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCookie('csrftoken'),
+      },
+      body: JSON.stringify({ full_name: fullName, email: email, password: password })
+    });
+
+    const data = await response.json();
+
+    if (data.exists) {
+      window.location.href = '/login';  // redirige vers page de connexion
+    } else if (data.created) {
+      localStorage.setItem("user", JSON.stringify({
+        full_name: fullName,
+        email: email
+      }));
+
+      modal.classList.add('hidden');
+      usernamePlaceholder.innerText = `${fullName}`;
+    }
+  });
+
+  // Fonction pour récupérer le CSRF token
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  // Affichage du nom depuis le localStorage (si déjà enregistré)
+  document.addEventListener("DOMContentLoaded", () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      usernamePlaceholder.innerText = `${user.full_name}`;
+    }
+  });
+
+
+  // CONNEXION
+    const loginForm = document.getElementById('login-form');
+  const loginModal = document.getElementById('loginModal');
+  const errorMsg = document.getElementById('login-error');
+  const usernamePlaceholder = document.getElementById('username-placeholder');
+
+  loginForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const email = loginForm.querySelector('input[placeholder="Email"]').value;
+    const password = loginForm.querySelector('input[placeholder="Password"]').value;
+
+    const response = await fetch('/api/login/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCookie('csrftoken'),
+      },
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      localStorage.setItem("user", JSON.stringify({
+        full_name: data.username,
+        email: data.email
+      }));
+     loginModal.classList.add('hidden');
+      errorMsg.classList.add('hidden');
+      usernamePlaceholder.innerText = `${data.username}`;
+    } else {
+      errorMsg.innerText = data.error;
+      errorMsg.classList.remove('hidden');
+    }
+  });
+
+  // CSRF token utilitaire
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  // Chargement nom utilisateur depuis localStorage
+  document.addEventListener("DOMContentLoaded", () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      usernamePlaceholder.innerText = `${user.full_name}`;
+    }
+  });
 
 </script>
 {% block extra_scripts %}{% endblock %}

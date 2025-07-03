@@ -13,13 +13,51 @@ from .forms import (
     InstitutionsForm, PrerequisitesForm, LanguagesForm
 )
 from .models import Certifications,Category,Institutions,Languages,Topic,Course
-
 from datetime import datetime
-
 from django.core.paginator import Paginator
-
 import plotly.graph_objects as go
 import plotly.offline as opy
+from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import authenticate
+
+import json
+
+
+
+@csrf_exempt
+def register_user(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        email = data.get('email')
+        name = data.get('full_name')
+        password = data.get('password')
+
+        if User.objects.filter(email=email).exists():
+            return JsonResponse({'exists': True})
+        else:
+            username = name.lower().replace(" ", "")
+            user = User.objects.create_user(username=username, email=email, password=password)
+            return JsonResponse({'created': True, 'username': user.username, 'email': user.email})
+
+@csrf_exempt
+def login_user(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        email = data.get('email')
+        password = data.get('password')
+
+        try:
+            # On récupère l'utilisateur associé à l'email
+            from django.contrib.auth.models import User
+            user = User.objects.get(email=email)
+            user_auth = authenticate(username=user.username, password=password)
+            if user_auth is not None:
+                return JsonResponse({'success': True, 'username': user.username, 'email': user.email})
+            else:
+                return JsonResponse({'success': False, 'error': 'Mot de passe incorrect'})
+        except User.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Email non enregistré'})
 
 
 def dashboard(request):
@@ -61,21 +99,6 @@ def dashboard(request):
     )
     price_div = opy.plot(price_fig, auto_open=False, output_type='div')
 
-    # Chart 3: Institution Distribution
-    """
-    
-    institution_fig = go.Figure()
-    institution_counts = certifications.values('institution__name').annotate(count=Institutions.Count('id'))
-    institution_fig.add_trace(go.Pie(
-        labels=[item['institution__name'] for item in institution_counts],
-        values=[item['count'] for item in institution_counts],
-        name='Institutions'
-    ))
-    institution_fig.update_layout(
-        title='Certifications by Institution'
-    )
-    institution_div = opy.plot(institution_fig, auto_open=False, output_type='div')
-"""
     context = {
         'difficulty_chart': difficulty_div,
         'price_chart': price_div,

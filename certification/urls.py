@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path,include
+from django.contrib.auth import views as auth_views
 
 from .views import *
 
@@ -12,11 +13,10 @@ urlpatterns = [
     path('course_detail/<int:pk>/', course_detail, name='course_detail'),
     path("path/",path_user, name="path"),
 
+    path('api/register/', register_user, name='register_user'),
+    path('api/login/', login_user, name='login_user'),
     path('dash/', include('django_plotly_dash.urls')),
     path('dashboard/', dashboard, name='dashboard'),
-    path("add/", AddCertificationView.as_view(), name="add_certification"),
-    path("add-related/<str:model_name>/", AddRelatedView.as_view(), name="add_related"),
-    #path("certification/<int:pk>/", CertificationDetailView.as_view(), name="certification_detail"),
-]
+    ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
