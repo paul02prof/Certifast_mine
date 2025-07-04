@@ -1,10 +1,11 @@
 module.exports = {
+
   content: [
     '../../templates/**/*.html',
     '../../**/templates/**/*.html',
     './static/**/*.js',
   ],
-
+  darkMode: 'class',
   theme: {
 
     extend: {

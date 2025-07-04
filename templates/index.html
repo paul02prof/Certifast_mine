@@ -1,62 +1,146 @@
-{% extends 'base.html' %}
 {% load static %}
-{% block title %}Certifications | Certifast{% endblock %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Certifast{% endblock %}</title>
+
+  <!-- CSS -->
+  <link href="{% static 'css/output.css' %}" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.bootstrap5.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@3.x.x/dist/full.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind (cdn, remove if you're compiling locally) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    .font-agbalumo {
+        font-family: 'Agbalumo', sans-serif;
+    }
+  html, body {
+    height: 100%;
+    margin: 0;
+    background-color: white;
+  }
 
 
+  </style>
+</head>
 
-<!-- Background image covering the whole page -->
-<div id="bg-slider1" class="fixed inset-0 -z-10 bg-cover bg-center brightness-50 transition-opacity duration-1000 opacity-100" style="background-image: url({% static 'img/img1.jpg' %});"></div>
-<!-- Contenu au-dessus -->
-<div id="bg-slider2" class="fixed inset-0 -z-10 bg-cover bg-center brightness-50 transition-opacity duration-1000 opacity-0"></div>
+<body class="bg-white text-gray-800">
 
-<div class="animate-in fade-in duration-500 flex flex-col items-center pt-32 justify-center">
-  <!-- Texte style Candy Crush -->
-  <div class="font-agbalumo text-6xl md:text-8xl text-white text-center mb-8
-              [text-shadow:_4px_4px_0_#f78fb3,_6px_6px_0_#f8a5c2,_8px_8px_0_#f9b9d1]
-              tracking-wide select-none">
-    Get Certified Just Now!
+<!-- Navbar -->
+<nav class="navbar bg-white shadow-sm pt-2">
+  <div class="flex-none">
+    <button class="btn btn-square btn-ghost" id="menu-button">
+      <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-5 w-5 stroke-current" fill="none" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+  <div class="flex-1">
+    <a class="btn btn-ghost text-xl">CERTIFAST</a>
+  </div>
+  <div class="space-x-6 menu menu-horizontal px-6 text-lg">
+    <a href="{% url 'index' %}" class="text-gray-700 hover:text-blue-600 transition font-medium">Home</a>
+    <a href="{% url 'index' %}" class="text-gray-700 hover:text-blue-600 transition font-medium">Certifications</a>
+  </div>
+  <div class="flex-none">
+    <button class="btn btn-square btn-ghost">
+      <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-5 w-5 stroke-current" fill="none" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01" />
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<div class="flex flex-col md:flex-row justify-between gap-x-4 p-4">
+  <!-- Left -->
+  <div id="left" class="md:w-8/12 ">
+    <div class="font-agbalumo text-xl md:text-xl text-white text-center mb-8
+        [text-shadow:_4px_4px_0_#f78fb3,_6px_6px_0_#f8a5c2,_8px_8px_0_#f9b9d1]
+        tracking-wide select-none">
+      Get Certified Just Now!
+    </div>
+
+    <div class="animate-in fade-in duration-500 flex flex-col items-center py-12">
+  <a href="certif/">
+        <button class="btn btn-accent btn-outline hover:bg-blue-500  ">Get started</button>
+      </a>
+    </div>
+  </div>
+
+  <!-- Right Carousel -->
+  <div class="carousel rounded-box   bg-fixed w-96 h-96 m-6 mt-12 ml-12">
+  <div class="carousel-item w-full bg-center">
+    <img
+      src=" {% static 'img/img1.jpg' %} "
+      class="w-full "
+      alt="Tailwind CSS Carousel component" />
+  </div>
+  <div class="carousel-item w-full">
+    <img
+      src=" {% static 'img/img4.jpg' %} "
+      class="w-full bg-fixed"
+      alt="Tailwind CSS Carousel component" />
+  </div>
+  <div class="carousel-item w-full">
+    <img
+      src="https://img.daisyui.com/images/stock/photo-1572635148818-ef6fd45eb394.webp"
+      class="w-full"
+      alt="Tailwind CSS Carousel component" />
+  </div>
+  <div class="carousel-item w-full">
+    <img
+      src="https://img.daisyui.com/images/stock/photo-1494253109108-2e30c049369b.webp"
+      class="w-full"
+      alt="Tailwind CSS Carousel component" />
+  </div>
+  <div class="carousel-item w-full">
+    <img
+      src="https://img.daisyui.com/images/stock/photo-1550258987-190a2d41a8ba.webp"
+      class="w-full"
+      alt="Tailwind CSS Carousel component" />
+  </div>
+  <div class="carousel-item w-full">
+    <img
+      src="https://img.daisyui.com/images/stock/photo-1559181567-c3190ca9959b.webp"
+      class="w-full"
+      alt="Tailwind CSS Carousel component" />
+  </div>
+  <div class="carousel-item w-full">
+    <img
+      src="https://img.daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.webp"
+      class="w-full"
+      alt="Tailwind CSS Carousel component" />
   </div>
 </div>
 
-<div class="animate-in fade-in duration-500 flex flex-col items-center pt-36 pb-24 justify-center">
- <a href="certif/" class="text-blue-600 no-underline "> <button class="btn btn-accent btn-outline hover:bg-blue-500 w-48">Get started</button></a>
+
 </div>
 
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
-
 <script>
-    const bgImages = [
-    "{% static 'img/img1.jpg' %}",
-    "{% static 'img/img2.jpg' %}",
-    "{% static 'img/img3.jpg' %}"
-  ];
-  let bgIndex = 0;
-  let showingFirst = true;
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.js-tags').forEach(function (el) {
+      new TomSelect(el, {
+        plugins: ['remove_button'],
+        create: false,
+        maxItems: null,
+        placeholder: 'Select items...'
+      });
+    });
 
-  setInterval(() => {
-    const nextIndex = (bgIndex + 1) % bgImages.length;
-    const first = document.getElementById('bg-slider1');
-    const second = document.getElementById('bg-slider2');
-
-    if (showingFirst) {
-      second.style.backgroundImage = `url(${bgImages[nextIndex]})`;
-      second.style.opacity = 1;
-      first.style.opacity = 0;
-    } else {
-      first.style.backgroundImage = `url(${bgImages[nextIndex]})`;
-      first.style.opacity = 1;
-      second.style.opacity = 0;
-    }
-    showingFirst = !showingFirst;
-    bgIndex = nextIndex;
-  }, 18000);
-
-  document.getElementById('menu-button')?.addEventListener('click', function () {
-    alert("log-in first");
+    document.getElementById('menu-button')?.addEventListener('click', function () {
+      alert("log-in first");
+    });
   });
 
+
 </script>
-
-
-{% endblock %}
+</body>
+</html>
