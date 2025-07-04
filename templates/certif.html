@@ -4,12 +4,16 @@
 {% block content %}
 
 <div class="flex flex-row   items-center space-y-5 space-x-5  ">
-    <input type="text" placeholder="Search" class="input input-bordered w-full max-w-xl rounded-3xl mt-4" />
-     <button class="btn btn-ghost btn-circle">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="size-9 hover:size-10 ">
+<form method="get" class="ml-8 mb-4 flex items-center gap-2 w-full">
+    <input type="text"  name="q" value="{{ query }}"  placeholder="Search" class="input input-bordered w-full max-w-xl rounded-3xl mt-4" />
+     <button type="submit" class="btn btn-ghost btn-circle mt-3">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class=" mt-0 size-9 hover:size-10 hover:stroke-blue-700">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
       </svg>
       </button>
+
+</form>
+
     <div class="flex justify-end space-x-5 pl-48 pt-0 items-center stroke-1">
       <div id="username-placeholder" class=" justify-end text-2xl font-bold text-gray-700"></div>
 
@@ -25,7 +29,7 @@
 <div class="container mx-auto px-1 py-0">
 
     <!-- Grille de certifications -->
-    <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-y-6 gap-x-1 mb-8  line-height-12px">
+    <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-y-6 gap-x-1 mb-8 ml-4 line-height-12px">
         {% for certif in certifications %}
 
         <div class="card bg-white w-11/12 h-9/12   hover:shadow-2xl hover:-translate-y-2  duration-500 hover:duration-500">
@@ -42,8 +46,8 @@
                 </h2>
                 <div class="card-actions justify-between mt-1">
                     <div>
-                        {% for category in certif.category.all|slice:":2" %}
-                        <div class="badge badge-outline mr-1">{{ category.name }}</div>
+                        {% for category in certif.category.all|slice:":1" %}
+                        <div class="badge badge-outline mr-1  text-blue-700">{{ category.name }}</div>
                         {% endfor %}
                     </div>
                 <!-- Boutons d'action -->
@@ -106,5 +110,25 @@
     });
   });
 });
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("search-certifications");
+    const certifCards = document.querySelectorAll(".card");
+
+    searchInput.addEventListener("input", function () {
+      const searchTerm = this.value.toLowerCase();
+
+      certifCards.forEach(card => {
+        const name = card.querySelector(".card-title").textContent.toLowerCase();
+
+        if (name.includes(searchTerm)) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    });
+  });
 </script>
 {% endblock %}

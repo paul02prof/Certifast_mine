@@ -136,7 +136,7 @@ class Course(models.Model):
     institution = models.ForeignKey("Institutions", on_delete=models.CASCADE, null=True)
     image = models.ImageField(upload_to="certification")
     exam_site = models.CharField(max_length=100)
-    prerequisites = models.CharField(null=True, max_length=50)
+    #prerequisites = models.CharField(null=True, max_length=50)
     link = models.URLField()
     discounts = models.CharField(null=True, max_length=50)
     languages = models.ManyToManyField("Languages")

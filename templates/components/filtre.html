@@ -10,7 +10,7 @@
         </svg>
         Appliquer les filtres
       </button>
-      <a href="" class="btn btn-outline">
+      <a href="{% url 'certification_list' %}" class="btn btn-outline">
         Réinitialiser
       </a>
     </div>
@@ -96,47 +96,3 @@
 
 </div>
 
-<script>
-    /*
-document.addEventListener('DOMContentLoaded', function () {
-  // Gère l'ouverture des filtres
-  document.querySelectorAll('.toggle-filter-btn').forEach(button => {
-    button.addEventListener('click', function () {
-      const targetId = this.dataset.target;
-      const targetEl = document.getElementById(targetId);
-      if (targetEl.classList.contains('hidden')) {
-        targetEl.classList.remove('hidden');
-        this.add('btn','btn-primary');
-      } else {
-        targetEl.classList.add('hidden');
-
-
-      }
-    });
-  });
-
-  // Gère les sélections des options de filtres
-  document.querySelectorAll('.filter-btn').forEach(button => {
-    button.addEventListener('click', function () {
-      const filterType = this.dataset.filter;
-      const value = this.dataset.value;
-      const input = document.getElementById(`${filterType}-input`);
-
-      if (input.value === value) {
-        input.value = '';
-        this.classList.remove('btn-primary');
-        this.classList.add('btn-outline');
-      } else {
-        document.querySelectorAll(`.${filterType}-btn`).forEach(btn => {
-          btn.classList.remove('btn-primary');
-          btn.classList.add('btn-outline');
-        });
-        input.value = value;
-        this.classList.remove('btn-outline');
-        this.classList.add('btn-primary');
-      }
-    });
-  });
-});*/
-
-</script>

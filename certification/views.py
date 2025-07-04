@@ -49,7 +49,7 @@ def login_user(request):
 
         try:
             # On récupère l'utilisateur associé à l'email
-            from django.contrib.auth.models import User
+
             user = User.objects.get(email=email)
             user_auth = authenticate(username=user.username, password=password)
             if user_auth is not None:
@@ -111,6 +111,12 @@ def dashboard(request):
 def certification_list(request):
     certifications = Certifications.objects.all().order_by('name')
 
+    query = request.GET.get('q', '')
+
+
+    if query:
+        certifications = certifications.filter(name__icontains=query)
+
     # Récupérer les paramètres de filtre
     difficulty = request.GET.get('difficulty')
     category = request.GET.get('category')
@@ -153,6 +159,10 @@ def certification_list(request):
 
 def course_list(request):
     course = Course.objects.all().order_by('name')
+    query = request.GET.get('q', '')
+
+    if query:
+        course = course.filter(name__icontains=query)
 
     # Récupérer les paramètres de filtre
     difficulty = request.GET.get('difficulty')
