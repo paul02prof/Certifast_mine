@@ -1,11 +1,26 @@
-<div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-extrabold text-blue-700 mb-8 text-center">Certifications</h1>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {% for cert in certifications %}
-            {% #cert_card  image_url=cert.image.url  name=cert.name category=cert.category.name detail_url=certification_detail id %}{% /cert_card %}
-        {% empty %}
-        <div class="col-span-full text-center text-gray-400 ">No certifications found.</div>
-        {% endfor %}
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+<body>
+   
 
-</div>
-    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
+<script>
+    const loader = new THREE.GLTFLoader();
+    loader.load(
+        'aws.obj',
+        function (gltf) {
+            scene.add(gltf.scene);
+        },
+        undefined,
+        function (error) {
+            console.error(error);
+        }
+    );
+</script>
+
+</body>
+</html>

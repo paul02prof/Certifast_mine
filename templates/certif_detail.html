@@ -61,9 +61,9 @@
                     durée -->
 
 
-                <button class="btn btn-ghost btn-outline text-black"> {{ certif.duration_of_validity }}</button>
+                <button class="btn btn-ghost btn-outline text-black hover:text-white"> {{ certif.duration_of_validity }}</button>
                          {% for language in languages|slice:":2"%}
-                      <button class="btn btn-ghost btn-outline text-black"> {{ language.name }}</button>
+                      <button class="btn btn-ghost btn-outline text-black hover:text-white"> {{ language.name }}</button>
                         {% endfor %}
 
             </div>
