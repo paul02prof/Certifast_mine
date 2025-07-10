@@ -215,7 +215,9 @@ def course_list(request):
     return render(request, 'course.html', context)
 
 def path_user(request):
-    return render(request, 'path.html')
+    institutions = Institutions.objects.all()
+
+    return render(request, 'path.html',{'institution': institutions})
 
 
 def certification_detail(request, pk):

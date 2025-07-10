@@ -60,6 +60,8 @@ class Institutions(models.Model):
     name = models.CharField(max_length=50)
     accepted_zones = models.CharField(max_length=250)
     about = models.TextField(null=True)
+    image = models.ImageField(upload_to="certification", null=True, blank=True)
+    fichier = models.FileField(upload_to="certification", null=True, blank=True)
 
     class Meta:
         db_table = "institutions"
@@ -134,7 +136,7 @@ class Course(models.Model):
     price = models.DecimalField(default=0, decimal_places=2, max_digits=6)
     duration_of_validity = models.CharField(null=True, max_length=50)
     institution = models.ForeignKey("Institutions", on_delete=models.CASCADE, null=True)
-    image = models.ImageField(upload_to="certification")
+    image = models.ImageField(upload_to="certification", null=True, blank=True)
     exam_site = models.CharField(max_length=100)
     #prerequisites = models.CharField(null=True, max_length=50)
     link = models.URLField()

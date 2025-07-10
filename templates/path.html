@@ -10,9 +10,67 @@
   overflow-hidden
 ">
   <!-- Votre contenu par-dessus la grille -->
-  <div class="p-8">
+  <div class="flex flex-row p-8 gap-6 items-center">
+    <h1 class="text-5xl font-bold  ">Create your own path</h1>
+    <button onclick="document.getElementById('path').classList.remove('hidden')">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-9 stroke-3 hover:stroke-blue-600">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z" />
+</svg></button>
+
+
     <!-- Le contenu de votre application ici -->
   </div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+  {% for instit in institution %}
+   {% if instit.image %}
+    <div class="flex bg-white shadow-md rounded-lg overflow-hidden w-full max-w-sm h-40">
+
+      <!-- Image à gauche -->
+      <div class="w-5/12 bg-white flex items-center justify-center p-1">
+        {% if instit.image %}
+          <img src="{{ instit.image.url }}" alt="{{ instit.name }}" class="h-full w-auto object-contain" />
+        {% else %}
+          <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" alt="Default" class="h-full w-auto object-cover" />
+        {% endif %}
+      </div>
+
+      <!-- Contenu à droite -->
+      <div class="w-7/12 p-4 flex flex-col justify-between">
+        <div>
+          <h2 class="text-md font-bold">{{ instit.name }}</h2>
+          <p class="text-sm text-gray-600 ">{{ instit.about|truncatechars:60 }}</p>
+        </div>
+        {% if instit.fichier %}
+          <a href="{{ instit.fichier.url }}" download class="btn btn-xs btn-outline btn-primary self-end mt-2">
+            Career Path
+          </a>
+        {% endif %}
+      </div>
+    </div>
+   {% endif %}
+  {% endfor %}
+</div>
+
+  <div id="path" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white w-[600px] h-[400px] rounded-[30px]  shadow-xl  relative justify-center pl-36 pt-8">
+
+    <!-- Image décorative à gauche -->
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-64">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+</svg>
+<h1 class="text-3xl font-bold  ">Pas encore disponible </h1>
+     <button
+        onclick="document.getElementById('path').classList.add('hidden')"
+        class="absolute top-4 right-4 bg-white w-8 h-8 rounded-full text-gray-600 text-xl flex items-center justify-center hover:bg-red-700 hover:text-white"
+      >
+        ×
+      </button>
+    <!-- Formulaire à droite -->
+
+  </div>
+</div>
+
+
 </div>
 
 <script>
