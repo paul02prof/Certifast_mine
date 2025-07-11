@@ -15,8 +15,7 @@ urlpatterns = [
 
     path('api/register/', register_user, name='register_user'),
     path('api/login/', login_user, name='login_user'),
-    path('dash/', include('django_plotly_dash.urls')),
-    path('dashboard/', dashboard, name='dashboard'),
+
     ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
